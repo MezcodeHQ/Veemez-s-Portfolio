@@ -1,978 +1,582 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veemeswaran G | Full Stack Developer & Security Engineer</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEEMESWARAN G — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cyan:#00f5ff;--gold:#ffd700;--purple:#a855f7;
+  --red:#ff4444;--green:#00ff88;--dark:#020409;
+}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--dark)}
+body{font-family:'Rajdhani',sans-serif;cursor:none}
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+#cur{position:fixed;width:12px;height:12px;border-radius:50%;background:var(--cyan);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:background .2s,width .2s,height .2s}
+#cur-r{position:fixed;width:40px;height:40px;border-radius:50%;border:1px solid rgba(0,245,255,.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
 
-    <!-- Tailwind Config -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                    },
-                    colors: {
-                        cyber: {
-                            dark: '#0f172a', // Slate 900
-                            deeper: '#020617', // Slate 950
-                            primary: '#3b82f6', // Blue 500
-                            accent: '#8b5cf6', // Violet 500
-                            neon: '#06b6d4', // Cyan 500
-                            text: '#f8fafc',
-                        }
-                    },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'pulse-glow': 'pulse-glow 3s infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-15px)' },
-                        },
-                        'pulse-glow': {
-                            '0%, 100%': { boxShadow: '0 0 10px rgba(6, 182, 212, 0.3)' },
-                            '50%': { boxShadow: '0 0 25px rgba(139, 92, 246, 0.6)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+#c{position:fixed;inset:0;z-index:0}
 
-    <style>
-        /* Cinematic Deep Space Gradient Background */
-        body {
-            background: radial-gradient(circle at top left, #1e1b4b, #0f172a, #020617);
-            color: #f8fafc;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
+#loader{
+  position:fixed;inset:0;z-index:1000;background:var(--dark);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .8s;
+}
+.load-ring{width:80px;height:80px;border-radius:50%;border:2px solid transparent;border-top-color:var(--cyan);border-right-color:var(--purple);animation:spin 1s linear infinite;margin-bottom:24px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-txt{font-family:'Share Tech Mono',monospace;color:var(--cyan);letter-spacing:.3em;font-size:.8rem;animation:blink 1.4s ease infinite}
+@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #020617;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
-            border-radius: 4px;
-        }
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 48px;
+  background:linear-gradient(180deg,rgba(2,4,9,.92) 0%,transparent 100%);
+}
+.logo{font-family:'Share Tech Mono',monospace;font-size:1.1rem;color:var(--cyan);letter-spacing:.2em;text-decoration:none;text-shadow:0 0 20px var(--cyan)}
+.logo span{color:var(--gold)}
+.nav-links{display:flex;gap:6px}
+.nb{
+  font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);background:transparent;
+  border:1px solid rgba(0,245,255,.12);
+  padding:8px 18px;cursor:none;text-decoration:none;display:inline-block;transition:all .3s;
+}
+.nb:hover,.nb.act{color:var(--cyan);border-color:var(--cyan);background:rgba(0,245,255,.07);text-shadow:0 0 8px var(--cyan);box-shadow:0 0 16px rgba(0,245,255,.1)}
+.mob-btn{display:none;background:none;border:1px solid rgba(0,245,255,.2);color:var(--cyan);padding:8px 12px;cursor:none}
 
-        /* Spotlight Effect CSS Variable */
-        :root {
-            --mouse-x: 50%;
-            --mouse-y: 50%;
-        }
+.panel{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .65s cubic-bezier(.16,1,.3,1)}
+.panel.on{opacity:1;pointer-events:auto}
 
-        .spotlight-layer {
-            background: radial-gradient(
-                800px circle at var(--mouse-x) var(--mouse-y),
-                rgba(255, 255, 255, 0.06),
-                transparent 40%
-            );
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 50;
-            mix-blend-mode: overlay;
-        }
+#p-home{
+  flex-direction:column;
+  background:radial-gradient(ellipse at 50% 40%,rgba(0,245,255,.04) 0%,transparent 65%);
+}
+.hero-badge{
+  font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.24em;
+  color:var(--green);border:1px solid rgba(0,255,136,.3);padding:6px 20px;margin-bottom:28px;
+  background:rgba(0,255,136,.04);animation:gp 3s ease infinite;
+}
+@keyframes gp{0%,100%{box-shadow:0 0 0 rgba(0,255,136,0)}50%{box-shadow:0 0 22px rgba(0,255,136,.25)}}
+#hname{
+  font-family:'Rajdhani',sans-serif;font-weight:700;
+  font-size:clamp(3rem,9vw,8rem);line-height:.92;letter-spacing:-.02em;text-align:center;
+  background:linear-gradient(135deg,#fff 0%,var(--cyan) 35%,var(--purple) 70%,var(--gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 50px rgba(0,245,255,.35));
+  animation:nameIn 1.2s cubic-bezier(.16,1,.3,1) both;
+  animation-delay:.4s;
+}
+@keyframes nameIn{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
+.hero-role{
+  font-family:'Share Tech Mono',monospace;font-size:clamp(.8rem,1.8vw,1.1rem);
+  color:rgba(255,255,255,.45);letter-spacing:.2em;margin-top:20px;text-align:center;
+}
+.hero-role b{color:var(--cyan);font-weight:400}
+.hero-ctas{display:flex;gap:14px;margin-top:44px;flex-wrap:wrap;justify-content:center}
+.bg{
+  font-family:'Share Tech Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:13px 34px;cursor:none;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .3s;
+}
+.bg.pri{background:var(--cyan);color:#000;box-shadow:0 0 30px rgba(0,245,255,.35)}
+.bg.pri:hover{background:#fff;box-shadow:0 0 50px rgba(0,245,255,.5)}
+.bg.sec{border:1px solid rgba(0,245,255,.35);color:var(--cyan);background:rgba(0,245,255,.04)}
+.bg.sec:hover{border-color:var(--cyan);background:rgba(0,245,255,.1)}
 
-        /* Glassmorphism - Lighter & Sharper */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.1s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        }
+.scroll-hint{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.2em;
+  color:rgba(255,255,255,.25);display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:fl 3s ease infinite;
+}
+@keyframes fl{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-7px)}}
+.scroll-hint::after{content:'';display:block;width:1px;height:36px;background:linear-gradient(to bottom,rgba(0,245,255,.4),transparent)}
 
-        .glass-card:hover {
-            border-color: rgba(6, 182, 212, 0.4);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
-        }
+.cp{
+  background:rgba(2,4,9,.88);backdrop-filter:blur(28px);
+  border:1px solid rgba(0,245,255,.12);
+  padding:44px 48px;max-width:920px;width:92%;max-height:82vh;overflow-y:auto;
+  position:relative;
+  box-shadow:0 0 80px rgba(0,245,255,.06),inset 0 0 80px rgba(0,0,0,.4);
+}
+.cp::-webkit-scrollbar{width:2px}
+.cp::-webkit-scrollbar-thumb{background:var(--cyan)}
+.cp::before{content:'';position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:2px solid var(--cyan);border-left:2px solid var(--cyan)}
+.cp::after{content:'';position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;border-bottom:2px solid var(--cyan);border-right:2px solid var(--cyan)}
+.cp-close{position:absolute;top:16px;right:16px;width:30px;height:30px;border:1px solid rgba(255,255,255,.1);background:none;color:rgba(255,255,255,.35);cursor:none;font-size:.8rem;display:flex;align-items:center;justify-content:center;transition:all .3s}
+.cp-close:hover{color:var(--red);border-color:var(--red)}
+.plabel{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.22em;color:var(--cyan);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.plabel::before{content:'';display:block;width:16px;height:1px;background:var(--cyan)}
+.ptitle{font-size:2.6rem;font-weight:700;line-height:1;color:#fff;margin-bottom:24px}
+.ptitle span{color:var(--cyan)}
 
-        .glass-nav {
-            background: rgba(2, 6, 23, 0.7);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
+/* ABOUT */
+.ag{display:grid;grid-template-columns:1fr 1.1fr;gap:44px}
+.abody{color:rgba(255,255,255,.55);line-height:1.9;font-size:.97rem;margin-bottom:16px}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
+.tag{font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.1em;padding:5px 12px;border:1px solid rgba(0,245,255,.18);color:rgba(0,245,255,.65);background:rgba(0,245,255,.03);transition:all .3s}
+.tag:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,245,255,.08)}
+.srow{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.1);margin-top:28px}
+.sb{background:rgba(2,4,9,.9);padding:18px 14px;text-align:center}
+.sn{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:2.1rem;color:var(--cyan);line-height:1}
+.sl{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-top:4px}
 
-        /* Scroll Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+/* SERVICES */
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(0,245,255,.08);border:1px solid rgba(0,245,255,.08);margin-top:6px}
+.sc{background:rgba(2,4,9,.85);padding:28px 24px;position:relative;overflow:hidden;transition:background .4s}
+.sc::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 0 0,rgba(0,245,255,.08),transparent 55%);opacity:0;transition:opacity .4s}
+.sc:hover::before{opacity:1}
+.sc:hover{background:rgba(0,245,255,.035)}
+.snum{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.18em;color:var(--gold);margin-bottom:14px}
+.sico{font-size:1.5rem;color:var(--cyan);margin-bottom:14px;display:block;text-shadow:0 0 16px rgba(0,245,255,.4);transition:text-shadow .3s}
+.sc:hover .sico{text-shadow:0 0 30px var(--cyan)}
+.sname{font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:9px}
+.sdesc{color:rgba(255,255,255,.42);font-size:.86rem;line-height:1.7}
 
-        /* Text Gradient */
-        .text-gradient {
-            background: linear-gradient(135deg, #60a5fa 0%, #c084fc 50%, #22d3ee 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+/* PORTFOLIO */
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.pc{position:relative;overflow:hidden;border:1px solid rgba(0,245,255,.1);background:rgba(0,245,255,.02);text-decoration:none;display:block;transition:all .4s}
+.pc:hover{border-color:var(--cyan);box-shadow:0 0 28px rgba(0,245,255,.12)}
+.pimg{width:100%;height:160px;object-fit:cover;filter:grayscale(50%) brightness(.75);transition:all .5s;display:block}
+.pc:hover .pimg{filter:grayscale(0%) brightness(1);transform:scale(1.05)}
+.pinfo{padding:14px 16px;position:relative}
+.pinfo::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--cyan),transparent);opacity:0;transition:opacity .3s}
+.pc:hover .pinfo::before{opacity:1}
+.pnum{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.14em;color:var(--gold)}
+.pname{font-size:.97rem;font-weight:700;color:#fff;margin:3px 0 2px}
+.ptype{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:var(--cyan)}
+.pext{position:absolute;top:10px;right:10px;width:26px;height:26px;border:1px solid rgba(0,245,255,.2);display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:.65rem;opacity:0;transform:scale(.8);transition:all .3s}
+.pc:hover .pext{opacity:1;transform:scale(1)}
 
-        /* Typewriter Cursor */
-        .cursor {
-            display: inline-block;
-            width: 3px;
-            background-color: #22d3ee;
-            animation: blink 1s infinite;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
+/* SKILLS */
+.skbw{margin-bottom:20px}
+.sktop{display:flex;justify-content:space-between;margin-bottom:7px}
+.skname{font-weight:600;font-size:.93rem;letter-spacing:.04em;color:#fff}
+.skpct{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--cyan)}
+.sktrack{height:2px;background:rgba(255,255,255,.05);position:relative;overflow:hidden}
+.skfill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--purple),var(--cyan));transition:width 1.6s cubic-bezier(.22,1,.36,1);box-shadow:0 0 8px rgba(0,245,255,.35)}
+.tw{display:flex;flex-wrap:wrap;gap:7px;margin-top:24px}
 
-        /* Particle Canvas */
-        #hero-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.4;
-        }
+/* CONTACT */
+.clayout{display:grid;grid-template-columns:1fr 1.2fr;gap:36px}
+.citems{display:flex;flex-direction:column}
+.citem{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid rgba(0,245,255,.07)}
+.cico{width:34px;height:34px;border:1px solid rgba(0,245,255,.18);display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:.82rem;flex-shrink:0}
+.cd small{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.12em;color:rgba(255,255,255,.28);display:block;margin-bottom:2px}
+.cd strong{color:rgba(255,255,255,.8);font-weight:400;font-size:.85rem}
+.cform{display:flex;flex-direction:column;gap:12px}
+.cfg{display:flex;flex-direction:column;gap:5px}
+.cfg label{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:rgba(255,255,255,.3)}
+.cfg input,.cfg textarea{background:rgba(0,245,255,.025);border:1px solid rgba(0,245,255,.1);color:#fff;padding:9px 12px;font-family:'Rajdhani',sans-serif;font-size:.92rem;outline:none;resize:none;transition:border-color .3s}
+.cfg input:focus,.cfg textarea:focus{border-color:var(--cyan);background:rgba(0,245,255,.05)}
+.cfg input::placeholder,.cfg textarea::placeholder{color:rgba(255,255,255,.18)}
+.cfrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.csub{background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;padding:13px;cursor:none;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:2px}
+.csub:hover{background:var(--cyan);color:#000;box-shadow:0 0 28px rgba(0,245,255,.28)}
 
-        /* Floating Socials */
-        .social-float {
-            position: fixed;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            z-index: 40;
-        }
-        .social-float a {
-            color: rgba(255,255,255,0.5);
-            transition: 0.3s;
-        }
-        .social-float a:hover {
-            color: #22d3ee;
-            transform: translateX(5px);
-        }
-        @media(max-width: 768px) {
-            .social-float { display: none; }
-        }
-    </style>
+/* SIDE SOCIALS */
+.ss{position:fixed;left:22px;bottom:36px;z-index:150;display:flex;flex-direction:column;gap:14px}
+.ss a{color:rgba(255,255,255,.22);font-size:.82rem;text-decoration:none;transition:color .3s}
+.ss a:hover{color:var(--cyan)}
+
+/* TOAST */
+#toast{position:fixed;bottom:30px;right:30px;z-index:500;background:rgba(2,4,9,.95);border:1px solid var(--cyan);padding:12px 22px;font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.12em;color:var(--cyan);transform:translateY(70px);opacity:0;transition:all .5s cubic-bezier(.16,1,.3,1);box-shadow:0 0 24px rgba(0,245,255,.12)}
+#toast.show{transform:translateY(0);opacity:1}
+
+/* SCAN LINE */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:300;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.025) 2px,rgba(0,0,0,.025) 4px)}
+
+#mob-menu{display:none;position:fixed;inset:0;z-index:250;background:rgba(2,4,9,.97);backdrop-filter:blur(20px);flex-direction:column;align-items:center;justify-content:center;gap:24px}
+#mob-menu.open{display:flex}
+#mob-menu a{font-family:'Share Tech Mono',monospace;font-size:1.1rem;letter-spacing:.2em;color:rgba(255,255,255,.55);text-decoration:none;transition:color .3s}
+#mob-menu a:hover{color:var(--cyan)}
+#mob-close{background:none;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.35);padding:8px 14px;cursor:none;position:absolute;top:22px;right:22px;font-size:.85rem}
+
+@media(max-width:800px){
+  nav{padding:16px 20px}
+  .nav-links{display:none}
+  .mob-btn{display:block}
+  .ag,.clayout{grid-template-columns:1fr}
+  .sg,.pg{grid-template-columns:1fr}
+  .srow{grid-template-columns:1fr 1fr}
+  .cp{padding:24px 20px}
+  .ss{display:none}
+  .cfrow{grid-template-columns:1fr}
+  #p-home .hero-ctas{flex-direction:column;align-items:center}
+}
+</style>
 </head>
-<body class="antialiased selection:bg-cyber-neon selection:text-black">
+<body>
 
-    <!-- Mouse Spotlight Overlay -->
-    <div class="spotlight-layer"></div>
+<div id="cur"></div>
+<div id="cur-r"></div>
 
-    <!-- Floating Social Sidebar -->
-    <div class="social-float">
-        <a href="https://www.facebook.com/share/18Cnb6n281/?mibextid=wwXIfr"><i class="fab fa-facebook-f text-xl"></i></a>
-        <a href="https://x.com/veemeswaran?s=11"><i class="fab fa-twitter text-xl"></i></a>
-        <a href="https://my.linkedin.com/in/veemeswaran-gunasekaran-b887a7298"><i class="fab fa-linkedin-in text-xl"></i></a>
-        <a href="https://github.com/MezcodeHQ"><i class="fab fa-github text-xl"></i></a>
-        <a href="https://www.instagram.com/_vmez_?igsh=YWoxbW1zYm41bTBp&utm_source=qr"><i class="fab fa-instagram text-xl"></i></a>
+<div id="loader">
+  <div class="load-ring"></div>
+  <div class="load-txt">INITIALIZING...</div>
+</div>
+
+<canvas id="c"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#" onclick="show('home');return false">VMEZ<span>.</span>G</a>
+  <div class="nav-links">
+    <a class="nb act" href="#" onclick="show('home');return false">Home</a>
+    <a class="nb" href="#" onclick="show('about');return false">About</a>
+    <a class="nb" href="#" onclick="show('services');return false">Services</a>
+    <a class="nb" href="#" onclick="show('portfolio');return false">Portfolio</a>
+    <a class="nb" href="#" onclick="show('skills');return false">Skills</a>
+    <a class="nb" href="#" onclick="show('contact');return false">Contact</a>
+  </div>
+  <button class="mob-btn" id="mob-open"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mob-menu">
+  <button id="mob-close"><i class="fas fa-times"></i></button>
+  <a href="#" onclick="show('home');cmob();return false">HOME</a>
+  <a href="#" onclick="show('about');cmob();return false">ABOUT</a>
+  <a href="#" onclick="show('services');cmob();return false">SERVICES</a>
+  <a href="#" onclick="show('portfolio');cmob();return false">PORTFOLIO</a>
+  <a href="#" onclick="show('skills');cmob();return false">SKILLS</a>
+  <a href="#" onclick="show('contact');cmob();return false">CONTACT</a>
+</div>
+
+<!-- SIDE SOCIALS -->
+<div class="ss">
+  <a href="https://www.facebook.com/share/18Cnb6n281/?mibextid=wwXIfr"><i class="fab fa-facebook-f"></i></a>
+  <a href="https://x.com/veemeswaran?s=11"><i class="fab fa-twitter"></i></a>
+  <a href="https://my.linkedin.com/in/veemeswaran-gunasekaran-b887a7298"><i class="fab fa-linkedin-in"></i></a>
+  <a href="https://github.com/MezcodeHQ"><i class="fab fa-github"></i></a>
+  <a href="https://www.instagram.com/_vmez_?igsh=YWoxbW1zYm41bTBp&utm_source=qr"><i class="fab fa-instagram"></i></a>
+</div>
+
+<!-- HOME -->
+<div class="panel on" id="p-home">
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;z-index:2">
+    <div class="hero-badge">⬡ AVAILABLE FOR FREELANCE &amp; PROJECTS ⬡</div>
+    <div id="hname">VEEMESWARAN<br>GUNASEKARAN</div>
+    <div class="hero-role">Full Stack Developer &nbsp;·&nbsp; <b>CyberSecurity Engineer</b> &nbsp;·&nbsp; IoT Solutions</div>
+    <div class="hero-ctas">
+      <a class="bg pri" href="#" onclick="show('portfolio');return false"><i class="fas fa-cube"></i> View Works</a>
+      <a class="bg sec" href="#" onclick="show('contact');return false"><i class="fas fa-satellite-dish"></i> Let's Talk</a>
     </div>
+  </div>
+  <div class="scroll-hint">EXPLORE</div>
+</div>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0 cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <span class="font-display font-bold text-2xl tracking-wider text-white">VEEMESWARAN<span class="text-cyber-neon">.DEV</span></span>
-                </div>
-                
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home" class="hover:text-cyber-neon transition-colors duration-300 px-3 py-2 rounded-md text-sm font-bold uppercase tracking-widest relative group">
-                            Home
-                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyber-neon transition-all group-hover:w-full"></span>
-                        </a>
-                        <a href="#about" class="hover:text-cyber-neon transition-colors duration-300 px-3 py-2 rounded-md text-sm font-bold uppercase tracking-widest relative group">
-                            About
-                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyber-neon transition-all group-hover:w-full"></span>
-                        </a>
-                        <a href="#service" class="hover:text-cyber-neon transition-colors duration-300 px-3 py-2 rounded-md text-sm font-bold uppercase tracking-widest relative group">
-                            Services
-                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyber-neon transition-all group-hover:w-full"></span>
-                        </a>
-                        <a href="#portfolio" class="hover:text-cyber-neon transition-colors duration-300 px-3 py-2 rounded-md text-sm font-bold uppercase tracking-widest relative group">
-                            Portfolio
-                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyber-neon transition-all group-hover:w-full"></span>
-                        </a>
-                        <a href="#contact" class="bg-cyber-neon text-black px-5 py-2 rounded-full font-bold uppercase text-sm hover:bg-white transition-all shadow-[0_0_15px_rgba(6,182,212,0.5)]">
-                            Contact
-                        </a>
-                    </div>
-                </div>
-
-                <div class="-mr-2 flex md:hidden">
-                    <button type="button" id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
+<!-- ABOUT -->
+<div class="panel" id="p-about">
+  <div class="cp">
+    <button class="cp-close" onclick="show('home')"><i class="fas fa-times"></i></button>
+    <div class="plabel">001 / About Me</div>
+    <div class="ptitle">Building the Future.<br><span>Securing the Present.</span></div>
+    <div class="ag">
+      <div>
+        <p class="abody">I'm passionate about building powerful web applications, solving complex coding problems, and securing digital environments. With a strong foundation in full stack development and a keen eye for cybersecurity, I bring ideas to life — from frontend interfaces to backend systems, all while ensuring robust security.</p>
+        <p class="abody">Based in Kajang, Malaysia. 4+ years crafting high-performance, security-conscious digital products.</p>
+        <div class="tags">
+          <div class="tag">React / Next.js</div><div class="tag">Node.js</div>
+          <div class="tag">Python</div><div class="tag">PHP / Laravel</div>
+          <div class="tag">Penetration Testing</div><div class="tag">IoT</div>
+          <div class="tag">MySQL / MongoDB</div><div class="tag">Figma</div>
         </div>
-
-        <div class="md:hidden hidden bg-cyber-deeper border-b border-white/10" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="text-gray-300 hover:text-cyber-neon block px-3 py-2 rounded-md text-base font-medium">Home</a>
-                <a href="#about" class="text-gray-300 hover:text-cyber-neon block px-3 py-2 rounded-md text-base font-medium">About</a>
-                <a href="#service" class="text-gray-300 hover:text-cyber-neon block px-3 py-2 rounded-md text-base font-medium">Services</a>
-                <a href="#portfolio" class="text-gray-300 hover:text-cyber-neon block px-3 py-2 rounded-md text-base font-medium">Portfolio</a>
-                <a href="#contact" class="text-gray-300 hover:text-cyber-neon block px-3 py-2 rounded-md text-base font-medium">Contact</a>
-            </div>
+      </div>
+      <div>
+        <div class="srow">
+          <div class="sb"><div class="sn">150<span style="color:var(--gold)">+</span></div><div class="sl">Happy Clients</div></div>
+          <div class="sb"><div class="sn">150<span style="color:var(--gold)">+</span></div><div class="sl">Projects Done</div></div>
+          <div class="sb"><div class="sn">4<span style="color:var(--gold)">+</span></div><div class="sl">Yrs Experience</div></div>
+          <div class="sb"><div class="sn">100<span style="color:var(--gold)">%</span></div><div class="sl">Commitment</div></div>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <canvas id="hero-canvas"></canvas>
-        
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-cyber-deeper pointer-events-none"></div>
-
-        <div class="relative z-10 text-center px-4 max-w-6xl mx-auto">
-            <div class="inline-block px-4 py-1 rounded-full border border-cyber-primary/30 bg-cyber-primary/10 backdrop-blur-sm mb-6 reveal">
-                <span class="text-cyber-neon font-mono text-sm tracking-widest uppercase">Available for Freelance</span>
-            </div>
-
-            <h1 class="font-display font-extrabold text-5xl md:text-8xl mb-6 text-white leading-tight reveal" style="transition-delay: 100ms;">
-                VEEMESWARAN <br class="md:hidden" /> <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400">GUNASEKARAN</span>
-            </h1>
-            
-            <div class="h-16 md:h-20 mb-10 reveal" style="transition-delay: 200ms;">
-                <span class="text-2xl md:text-4xl text-gray-300 font-light" id="typewriter"></span><span class="cursor">&nbsp;</span>
-            </div>
-
-            <div class="flex flex-col md:flex-row gap-6 justify-center items-center reveal" style="transition-delay: 300ms;">
-                <a href="#portfolio" class="group relative px-8 py-4 bg-transparent border border-cyber-neon text-cyber-neon font-bold uppercase tracking-widest overflow-hidden transition-all hover:text-black hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]">
-                    <span class="absolute w-0 h-full bg-cyber-neon left-0 top-0 transition-all duration-300 group-hover:w-full -z-10"></span>
-                    View Works
-                </a>
-                <a href="#contact" class="group px-8 py-4 bg-white/5 border border-white/10 text-white font-bold uppercase tracking-widest transition-all hover:bg-white/10 hover:border-cyber-accent">
-                    Let's Talk
-                </a>
-            </div>
+        <div style="margin-top:24px;padding:18px;border:1px solid rgba(0,245,255,.1);background:rgba(0,245,255,.025)">
+          <div style="font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.14em;color:var(--gold);margin-bottom:10px">SPECIALIZATIONS</div>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.55);font-size:.88rem"><i class="fas fa-code" style="color:var(--cyan);width:14px"></i>Full Stack Web Development</div>
+            <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.55);font-size:.88rem"><i class="fas fa-shield-alt" style="color:var(--cyan);width:14px"></i>Cybersecurity &amp; Pen Testing</div>
+            <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.55);font-size:.88rem"><i class="fas fa-mobile-alt" style="color:var(--cyan);width:14px"></i>Cross-Platform App Design</div>
+            <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.55);font-size:.88rem"><i class="fas fa-microchip" style="color:var(--cyan);width:14px"></i>IoT &amp; Embedded Systems</div>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <!-- Scroll Down Indicator -->
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <a href="#about" class="text-gray-400 hover:text-white transition-colors">
-                <i class="fas fa-chevron-down text-2xl"></i>
-            </a>
+<!-- SERVICES -->
+<div class="panel" id="p-services">
+  <div class="cp">
+    <button class="cp-close" onclick="show('home')"><i class="fas fa-times"></i></button>
+    <div class="plabel">002 / Services</div>
+    <div class="ptitle">What I <span>Do</span></div>
+    <div class="sg">
+      <div class="sc"><div class="snum">01</div><i class="fas fa-laptop-code sico"></i><div class="sname">IT Solutions</div><div class="sdesc">Enterprise Resource Planning, IT strategy, and comprehensive digital transformation for modern organizations.</div></div>
+      <div class="sc"><div class="snum">02</div><i class="fas fa-code sico"></i><div class="sname">Web Development</div><div class="sdesc">Responsive, performant websites and web apps with React, Next.js, Node.js, Laravel &amp; modern stacks.</div></div>
+      <div class="sc"><div class="snum">03</div><i class="fas fa-mobile-alt sico"></i><div class="sname">App Design</div><div class="sdesc">Cross-platform mobile applications with intuitive UX, seamless performance, and pixel-perfect interfaces.</div></div>
+      <div class="sc"><div class="snum">04</div><i class="fas fa-shield-alt sico"></i><div class="sname">Cybersecurity</div><div class="sdesc">IoT hardening, network security, penetration testing, and comprehensive threat mitigation strategies.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<div class="panel" id="p-portfolio">
+  <div class="cp">
+    <button class="cp-close" onclick="show('home')"><i class="fas fa-times"></i></button>
+    <div class="plabel">003 / Portfolio</div>
+    <div class="ptitle">Selected <span>Works</span></div>
+    <div class="pg">
+      <a class="pc" href="https://www.globalexedu.org/" target="_blank" rel="noopener">
+        <img class="pimg" src="public_html/assets/imgs/7.png" alt="Global Executive Education">
+        <div class="pext"><i class="fas fa-external-link-alt"></i></div>
+        <div class="pinfo"><div class="pnum">01 / 04</div><div class="pname">Global Executive Education</div><div class="ptype">Full Stack Development</div></div>
+      </a>
+      <a class="pc" href="https://mezcodehq.github.io/Solving-Lab-Consultancy/" target="_blank" rel="noopener">
+        <img class="pimg" src="public_html/assets/imgs/2.png" alt="Solving Lab Consultancy">
+        <div class="pext"><i class="fas fa-external-link-alt"></i></div>
+        <div class="pinfo"><div class="pnum">02 / 04</div><div class="pname">Solving Lab Consultancy</div><div class="ptype">Full Stack Development</div></div>
+      </a>
+      <a class="pc" href="https://mezcode.com/" target="_blank" rel="noopener">
+        <img class="pimg" src="public_html/assets/imgs/8.png" alt="Mezcode IT Solutions">
+        <div class="pext"><i class="fas fa-external-link-alt"></i></div>
+        <div class="pinfo"><div class="pnum">03 / 04</div><div class="pname">MEZCODE IT Solutions</div><div class="ptype">Full Stack Development</div></div>
+      </a>
+      <a class="pc" href="https://quantum-portal.infinityfreeapp.com/" target="_blank" rel="noopener">
+        <img class="pimg" src="public_html/assets/imgs/image.png" alt="Quantum Portal">
+        <div class="pext"><i class="fas fa-external-link-alt"></i></div>
+        <div class="pinfo"><div class="pnum">04 / 04</div><div class="pname">Quantum Portal</div><div class="ptype">Web Application</div></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="panel" id="p-skills">
+  <div class="cp">
+    <button class="cp-close" onclick="show('home')"><i class="fas fa-times"></i></button>
+    <div class="plabel">004 / Skills</div>
+    <div class="ptitle">Technical <span>Arsenal</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;margin-top:4px">
+      <div>
+        <div class="skbw"><div class="sktop"><span class="skname">UI/UX &amp; Design</span><span class="skpct">95%</span></div><div class="sktrack"><div class="skfill" data-w="95%"></div></div></div>
+        <div class="skbw"><div class="sktop"><span class="skname">Web Development</span><span class="skpct">90%</span></div><div class="sktrack"><div class="skfill" data-w="90%"></div></div></div>
+        <div class="skbw"><div class="sktop"><span class="skname">App Development</span><span class="skpct">85%</span></div><div class="sktrack"><div class="skfill" data-w="85%"></div></div></div>
+        <div class="skbw"><div class="sktop"><span class="skname">Cybersecurity</span><span class="skpct">88%</span></div><div class="sktrack"><div class="skfill" data-w="88%"></div></div></div>
+        <div class="skbw"><div class="sktop"><span class="skname">SEO &amp; Performance</span><span class="skpct">90%</span></div><div class="sktrack"><div class="skfill" data-w="90%"></div></div></div>
+        <div class="skbw"><div class="sktop"><span class="skname">Photoshop / Design Tools</span><span class="skpct">89%</span></div><div class="sktrack"><div class="skfill" data-w="89%"></div></div></div>
+      </div>
+      <div>
+        <p style="color:rgba(255,255,255,.45);font-size:.88rem;line-height:1.8;margin-bottom:22px">A full-spectrum toolkit — design, development, security, and infrastructure.</p>
+        <div class="tw">
+          <div class="tag">HTML5</div><div class="tag">CSS3</div><div class="tag">JavaScript</div>
+          <div class="tag">TypeScript</div><div class="tag">React</div><div class="tag">Next.js</div>
+          <div class="tag">Node.js</div><div class="tag">Python</div><div class="tag">PHP</div>
+          <div class="tag">Laravel</div><div class="tag">MySQL</div><div class="tag">MongoDB</div>
+          <div class="tag">Arduino</div><div class="tag">Raspberry Pi</div><div class="tag">Kali Linux</div>
+          <div class="tag">Figma</div><div class="tag">Photoshop</div><div class="tag">Git</div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- Stats Section -->
-    <section class="py-12 border-y border-white/5 bg-white/5 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <!-- Happy Clients -->
-            <div class="p-6 reveal">
-                <div class="text-5xl md:text-6xl font-black text-transparent 
-                    bg-clip-text bg-gradient-to-b from-white to-gray-400 mb-2 
-                    counter" data-target="150">0</div>
-                <div class="text-sm text-cyber-neon font-mono uppercase tracking-widest">
-                    Happy Clients
-                </div>
-            </div>
-
-            <!-- Projects Completed -->
-            <div class="p-6 reveal" style="transition-delay: 100ms;">
-                <div class="text-5xl md:text-6xl font-black text-transparent 
-                    bg-clip-text bg-gradient-to-b from-white to-gray-400 mb-2 
-                    counter" data-target="150">0</div>
-                <div class="text-sm text-cyber-neon font-mono uppercase tracking-widest">
-                    Projects Completed
-                </div>
-            </div>
-
-            <!-- Experience -->
-            <div class="p-6 reveal" style="transition-delay: 200ms;">
-                <div class="text-5xl md:text-6xl font-black text-transparent 
-                    bg-clip-text bg-gradient-to-b from-white to-gray-400 mb-2 
-                    counter" data-target="4">0</div>
-                <div class="text-sm text-cyber-neon font-mono uppercase tracking-widest">
-                    Years of Experience
-                </div>
-            </div>
+<!-- CONTACT -->
+<div class="panel" id="p-contact">
+  <div class="cp">
+    <button class="cp-close" onclick="show('home')"><i class="fas fa-times"></i></button>
+    <div class="plabel">005 / Contact</div>
+    <div class="ptitle">Let's Work <span>Together</span></div>
+    <div class="clayout">
+      <div>
+        <p style="color:rgba(255,255,255,.42);font-size:.9rem;line-height:1.8;margin-bottom:24px">Have a project in mind? I'm always open to discussing new ideas, creative opportunities, or partnerships.</p>
+        <div class="citems">
+          <div class="citem"><div class="cico"><i class="fas fa-phone-alt"></i></div><div class="cd"><small>Phone</small><strong>013-3048031</strong></div></div>
+          <div class="citem"><div class="cico"><i class="fas fa-envelope"></i></div><div class="cd"><small>Email</small><strong>veemeswarang@gmail.com</strong></div></div>
+          <div class="citem"><div class="cico"><i class="fas fa-map-marker-alt"></i></div><div class="cd"><small>Location</small><strong>Kajang, Selangor, MY</strong></div></div>
         </div>
-    </section>
+        <div style="display:flex;gap:10px;margin-top:24px;flex-wrap:wrap">
+          <a href="https://my.linkedin.com/in/veemeswaran-gunasekaran-b887a7298" style="color:var(--cyan);font-size:.85rem;text-decoration:none;border:1px solid rgba(0,245,255,.18);padding:7px 12px;transition:all .3s"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://github.com/MezcodeHQ" style="color:var(--cyan);font-size:.85rem;text-decoration:none;border:1px solid rgba(0,245,255,.18);padding:7px 12px;transition:all .3s"><i class="fab fa-github"></i></a>
+          <a href="https://x.com/veemeswaran?s=11" style="color:var(--cyan);font-size:.85rem;text-decoration:none;border:1px solid rgba(0,245,255,.18);padding:7px 12px;transition:all .3s"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/_vmez_?igsh=YWoxbW1zYm41bTBp&utm_source=qr" style="color:var(--cyan);font-size:.85rem;text-decoration:none;border:1px solid rgba(0,245,255,.18);padding:7px 12px;transition:all .3s"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <form class="cform" id="contactForm" action="https://formspree.io/f/xojnodno" method="POST">
+        <div class="cfrow">
+          <div class="cfg"><label>Your Name</label><input type="text" name="name" placeholder="John Doe" required></div>
+          <div class="cfg"><label>Email</label><input type="email" name="email" placeholder="john@example.com" required></div>
+        </div>
+        <div class="cfg"><label>Subject</label><input type="text" name="subject" placeholder="Project Discussion" required></div>
+        <div class="cfg"><label>Message</label><textarea name="message" rows="4" placeholder="Tell me about your project…" required></textarea></div>
+        <button type="submit" class="csub" id="subBtn"><span id="subTxt">Transmit Message</span><i class="fas fa-satellite-dish" id="subIco"></i></button>
+      </form>
+    </div>
+  </div>
+</div>
 
-    <script>
-const counters = document.querySelectorAll('.counter');
-const speed = 200; // animation speed
+<div id="toast"></div>
 
-const startCounting = (counter) => {
-    const target = +counter.getAttribute('data-target');
-    let count = 0;
-    const increment = target / speed;
-
-    const updateCount = () => {
-        count += increment;
-        if (count < target) {
-            counter.innerText = Math.ceil(count);
-            requestAnimationFrame(updateCount);
-        } else {
-            counter.innerText = target;
-        }
-    };
-
-    updateCount();
-};
-
-// Run when visible
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            startCounting(entry.target);
-            observer.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
-
-counters.forEach(counter => {
-    observer.observe(counter);
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ── CURSOR ── */
+const ce=document.getElementById('cur'),re=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;ce.style.left=mx+'px';ce.style.top=my+'px'});
+(function ac(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;re.style.left=rx+'px';re.style.top=ry+'px';requestAnimationFrame(ac)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ce.style.width='18px';ce.style.height='18px';ce.style.background='var(--gold)';re.style.width='58px';re.style.height='58px';re.style.borderColor='var(--gold)'});
+  el.addEventListener('mouseleave',()=>{ce.style.width='12px';ce.style.height='12px';ce.style.background='var(--cyan)';re.style.width='40px';re.style.height='40px';re.style.borderColor='rgba(0,245,255,.4)'});
 });
+
+/* ── PANELS ── */
+const panelMap={home:0,about:1,services:2,portfolio:3,skills:4,contact:5};
+function show(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('p-'+id).classList.add('on');
+  document.querySelectorAll('.nb').forEach((b,i)=>b.classList.toggle('act',i===panelMap[id]));
+  if(id==='skills'){
+    setTimeout(()=>{document.querySelectorAll('.skfill').forEach(f=>{f.style.width=f.dataset.w})},150);
+  }
+  setCamTarget(id);
+}
+function cmob(){document.getElementById('mob-menu').classList.remove('open')}
+document.getElementById('mob-open').addEventListener('click',()=>document.getElementById('mob-menu').classList.add('open'));
+document.getElementById('mob-close').addEventListener('click',cmob);
+
+/* ── THREE.JS ── */
+const scene=new THREE.Scene();
+const cam=new THREE.PerspectiveCamera(65,innerWidth/innerHeight,.1,1000);
+cam.position.set(0,0,28);
+const ren=new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true,alpha:true});
+ren.setSize(innerWidth,innerHeight);
+ren.setPixelRatio(Math.min(devicePixelRatio,2));
+scene.fog=new THREE.FogExp2(0x020409,.02);
+
+/* LIGHTS */
+scene.add(new THREE.AmbientLight(0x080818,4));
+const l1=new THREE.PointLight(0x00f5ff,5,70);l1.position.set(12,10,8);scene.add(l1);
+const l2=new THREE.PointLight(0xa855f7,4,55);l2.position.set(-10,-8,4);scene.add(l2);
+const l3=new THREE.PointLight(0xffd700,2.5,45);l3.position.set(0,16,-4);scene.add(l3);
+
+/* STARS */
+const sg=new THREE.BufferGeometry();
+const sc2=4000,sp=new Float32Array(sc2*3);
+for(let i=0;i<sc2*3;i++)sp[i]=(Math.random()-.5)*350;
+sg.setAttribute('position',new THREE.BufferAttribute(sp,3));
+scene.add(new THREE.Points(sg,new THREE.PointsMaterial({color:0xffffff,size:.12,transparent:true,opacity:.55})));
+
+/* GRID */
+const gh=new THREE.GridHelper(100,50,0x00f5ff,0x00f5ff);
+gh.material.opacity=.035;gh.material.transparent=true;gh.position.y=-14;scene.add(gh);
+
+/* TORUS KNOT — main hero element */
+const tkG=new THREE.TorusKnotGeometry(4.5,.55,128,16,2,3);
+const tkM=new THREE.MeshPhongMaterial({color:0x00f5ff,emissive:0x003344,wireframe:true,transparent:true,opacity:.32});
+const tk=new THREE.Mesh(tkG,tkM);scene.add(tk);
+
+/* ICOSAHEDRON — right floating */
+const icG=new THREE.IcosahedronGeometry(2.8,1);
+const icM=new THREE.MeshPhongMaterial({color:0xa855f7,emissive:0x220044,wireframe:true,transparent:true,opacity:.38});
+const ic=new THREE.Mesh(icG,icM);ic.position.set(14,-2,2);scene.add(ic);
+
+/* OCTAHEDRON — left floating */
+const ocG=new THREE.OctahedronGeometry(2.2,0);
+const ocM=new THREE.MeshPhongMaterial({color:0xffd700,emissive:0x332200,wireframe:true,transparent:true,opacity:.45});
+const oc=new THREE.Mesh(ocG,ocM);oc.position.set(-13,3,2);scene.add(oc);
+
+/* DODECAHEDRON — background */
+const ddG=new THREE.DodecahedronGeometry(3.5,0);
+const ddM=new THREE.MeshPhongMaterial({color:0x00ff88,emissive:0x003322,wireframe:true,transparent:true,opacity:.18});
+const dd=new THREE.Mesh(ddG,ddM);dd.position.set(0,-8,-8);scene.add(dd);
+
+/* PARTICLE SPHERE */
+const pcnt=800,ppos=new Float32Array(pcnt*3);
+for(let i=0;i<pcnt;i++){
+  const r=10+Math.random()*18;
+  const th=Math.random()*Math.PI*2,ph=Math.acos(2*Math.random()-1);
+  ppos[i*3]=r*Math.sin(ph)*Math.cos(th);
+  ppos[i*3+1]=r*Math.sin(ph)*Math.sin(th);
+  ppos[i*3+2]=r*Math.cos(ph);
+}
+const pG=new THREE.BufferGeometry();pG.setAttribute('position',new THREE.BufferAttribute(ppos,3));
+const ps=new THREE.Points(pG,new THREE.PointsMaterial({color:0x00f5ff,size:.18,transparent:true,opacity:.45}));
+scene.add(ps);
+
+/* FLOATING RINGS */
+const rings=[];
+[[0x00f5ff,6],[0xa855f7,9],[0xffd700,12],[0x00ff88,15]].forEach(([col,r],i)=>{
+  const rg=new THREE.TorusGeometry(r,.055,8,64);
+  const rm=new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.16-.01*i});
+  const rm2=new THREE.Mesh(rg,rm);
+  rm2.rotation.x=.4+i*.3;rm2.rotation.y=i*.5;scene.add(rm2);rings.push(rm2);
+});
+
+/* RANDOM CUBES */
+const cubes=[];
+for(let i=0;i<24;i++){
+  const s=.15+Math.random()*.45;
+  const cm=new THREE.Mesh(
+    new THREE.BoxGeometry(s,s,s),
+    new THREE.MeshPhongMaterial({color:Math.random()>.5?0x00f5ff:0xa855f7,transparent:true,opacity:.25,wireframe:true})
+  );
+  cm.position.set((Math.random()-.5)*50,(Math.random()-.5)*24,(Math.random()-.5)*22-8);
+  scene.add(cm);cubes.push({m:cm,rx:(Math.random()-.5)*.018,ry:(Math.random()-.5)*.018});
+}
+
+/* MOUSE & CAM TARGET */
+let mmx=0,mmy=0;
+document.addEventListener('mousemove',e=>{mmx=(e.clientX/innerWidth-.5)*2;mmy=-(e.clientY/innerHeight-.5)*2});
+let ct={x:0,y:0,z:28};
+const camT={home:{x:0,y:0,z:28},about:{x:-5,y:2,z:22},services:{x:6,y:-2,z:23},portfolio:{x:0,y:-4,z:20},skills:{x:5,y:4,z:22},contact:{x:-5,y:-4,z:20}};
+function setCamTarget(id){ct=camT[id]||camT.home}
+
+/* ANIMATE */
+const clk=new THREE.Clock();
+(function loop(){
+  requestAnimationFrame(loop);
+  const t=clk.getElapsedTime();
+  tk.rotation.x=t*.14;tk.rotation.y=t*.18;
+  ic.rotation.x=t*.28;ic.rotation.y=t*.18;ic.position.y=-2+Math.sin(t*.7)*1.8;
+  oc.rotation.x=-t*.18;oc.rotation.y=t*.22;oc.position.y=3+Math.cos(t*.55)*1.6;
+  dd.rotation.x=t*.1;dd.rotation.y=t*.12;
+  rings.forEach((r,i)=>{r.rotation.x+=.003+i*.0008;r.rotation.y+=.004+i*.0006});
+  cubes.forEach(c=>{c.m.rotation.x+=c.rx;c.m.rotation.y+=c.ry});
+  ps.rotation.y=t*.035;ps.rotation.x=t*.018;
+  l1.position.x=Math.sin(t*.45)*16;l1.position.z=Math.cos(t*.45)*12;
+  l2.position.x=Math.cos(t*.38)*13;l2.position.z=Math.sin(t*.38)*9;
+  cam.position.x+=(ct.x+mmx*2.5-cam.position.x)*.04;
+  cam.position.y+=(ct.y+mmy*1.8-cam.position.y)*.04;
+  cam.position.z+=(ct.z-cam.position.z)*.06;
+  cam.lookAt(0,0,0);
+  ren.render(scene,cam);
+})();
+
+window.addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();ren.setSize(innerWidth,innerHeight)});
+
+/* LOADER */
+setTimeout(()=>{const l=document.getElementById('loader');l.style.opacity='0';setTimeout(()=>l.style.display='none',800)},1800);
+
+/* CONTACT */
+const form=document.getElementById('contactForm');
+const toast=document.getElementById('toast');
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const btn=document.getElementById('subBtn');
+  document.getElementById('subTxt').textContent='Transmitting…';
+  document.getElementById('subIco').className='fas fa-spinner fa-spin';
+  btn.disabled=true;
+  try{
+    const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+    if(res.ok){form.reset();showToast('✓ Message transmitted!')}
+    else showToast('✗ Transmission failed. Retry.');
+  }catch{showToast('✗ Network error. Retry.')}
+  setTimeout(()=>{document.getElementById('subTxt').textContent='Transmit Message';document.getElementById('subIco').className='fas fa-satellite-dish';btn.disabled=false},1400);
+});
+function showToast(m){toast.textContent=m;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),4000)}
 </script>
-
-    <!-- About Section -->
-    <section id="about" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="relative reveal">
-                    <!-- Decorative blobs -->
-                    <div class="absolute -top-10 -left-10 w-40 h-40 bg-purple-500/30 rounded-full blur-3xl"></div>
-                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-cyan-500/30 rounded-full blur-3xl"></div>
-                    
-                    <div class="relative rounded-2xl overflow-hidden border border-white/10 group">
-                        <!-- Note: Ensure your image path is correct relative to index.html -->
-                        <img src="public_html/assets/imgs/my.png" alt="Profile" class="w-full object-cover h-[600px] filter contrast-125 grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105">
-                        <div class="absolute inset-0 bg-gradient-to-t from-cyber-deeper via-transparent to-transparent opacity-80"></div>
-                    </div>
-                </div>
-
-                <div class="reveal" style="transition-delay: 200ms;">
-                    <h2 class="text-sm font-mono text-cyber-neon mb-2 uppercase tracking-widest">About Me</h2>
-                    <h3 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Building the Future <br><span class="text-gray-400">Securing the Present</span></h3>
-                    
-                    <p class="text-gray-300 text-lg leading-relaxed mb-6">
-                        I'm passionate about building powerful web applications, solving complex coding problems, and securing digital environments. With a strong foundation in full stack development and a keen eye for cybersecurity, I bring ideas to life—from frontend interfaces to backend systems, all while ensuring robust security.
-                    </p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
-                        <div class="glass-card p-4 rounded-xl flex items-center gap-4 tilt-card">
-                            <div class="p-3 bg-cyber-neon/10 rounded-lg text-cyber-neon"><i class="fas fa-code"></i></div>
-                            <span class="font-semibold">Full Stack Dev</span>
-                        </div>
-                        <div class="glass-card p-4 rounded-xl flex items-center gap-4 tilt-card">
-                            <div class="p-3 bg-purple-500/10 rounded-lg text-purple-400"><i class="fas fa-shield-alt"></i></div>
-                            <span class="font-semibold">Cyber Security</span>
-                        </div>
-                        <div class="glass-card p-4 rounded-xl flex items-center gap-4 tilt-card">
-                            <div class="p-3 bg-blue-500/10 rounded-lg text-blue-400"><i class="fas fa-laptop-code"></i></div>
-                            <span class="font-semibold">UI/UX Design</span>
-                        </div>
-                        <div class="glass-card p-4 rounded-xl flex items-center gap-4 tilt-card">
-                            <div class="p-3 bg-pink-500/10 rounded-lg text-pink-400"><i class="fas fa-microchip"></i></div>
-                            <span class="font-semibold">IoT Solutions</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="service" class="py-24 bg-cyber-deeper relative overflow-hidden">
-        <!-- Background Grid -->
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 relative z-10">
-            <div class="text-center mb-20 reveal">
-                <h2 class="text-sm font-mono text-cyber-neon mb-2 uppercase tracking-widest">What I Do</h2>
-                <h3 class="font-display text-4xl font-bold text-white">My Services</h3>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Service Cards with Tilt Effect -->
-                <div class="glass-card p-8 rounded-2xl group cursor-pointer reveal tilt-card">
-                    <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center mb-6 text-white text-xl shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3 text-white">IT Solutions</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">Comprehensive Enterprise Resource Development and IT strategy planning.</p>
-                </div>
-
-                <div class="glass-card p-8 rounded-2xl group cursor-pointer reveal tilt-card" style="transition-delay: 100ms;">
-                    <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-6 text-white text-xl shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3 text-white">Web Design</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">Creating responsive, modern, and high-performance websites.</p>
-                </div>
-
-                <div class="glass-card p-8 rounded-2xl group cursor-pointer reveal tilt-card" style="transition-delay: 200ms;">
-                    <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-xl flex items-center justify-center mb-6 text-white text-xl shadow-lg shadow-orange-500/20 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3 text-white">Apps Design</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">Developing cross-platform mobile applications.</p>
-                </div>
-
-                <div class="glass-card p-8 rounded-2xl group cursor-pointer reveal tilt-card" style="transition-delay: 300ms;">
-                    <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-400 rounded-xl flex items-center justify-center mb-6 text-white text-xl shadow-lg shadow-green-500/20 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h4 class="text-xl font-bold mb-3 text-white">Cybersecurity</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">Securing IoT devices and networks against digital threats.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="reveal">
-                    <h2 class="text-sm font-mono text-cyber-neon mb-2 uppercase tracking-widest">My Arsenal</h2>
-                    <h3 class="font-display text-4xl font-bold text-white mb-6">Why Choose Me</h3>
-                    <p class="text-gray-300 text-lg leading-relaxed">
-                        I bring a unique blend of technical expertise and creative problem-solving. I’m committed to delivering high-quality, reliable, and future-ready solutions.
-                    </p>
-                    
-                    <div class="mt-8 flex gap-4">
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-cyber-neon">100%</div>
-                            <div class="text-xs text-gray-500 uppercase">Commitment</div>
-                        </div>
-                        <div class="w-px bg-gray-700 h-12"></div>
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-cyber-accent">24/7</div>
-                            <div class="text-xs text-gray-500 uppercase">Support</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-y-6 reveal glass-card p-8 rounded-2xl border-0" style="transition-delay: 200ms;">
-                    <!-- Skill Bars -->
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-bold text-white">Photoshop</span>
-                            <span class="text-cyber-neon font-mono">89%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
-                            <div class="bg-gradient-to-r from-blue-600 to-cyan-400 h-3 rounded-full shadow-[0_0_10px_rgba(6,182,212,0.5)]" style="width: 0%" data-width="89%"></div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-bold text-white">Web Design</span>
-                            <span class="text-cyber-neon font-mono">83%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
-                            <div class="bg-gradient-to-r from-purple-600 to-pink-400 h-3 rounded-full shadow-[0_0_10px_rgba(236,72,153,0.5)]" style="width: 0%" data-width="83%"></div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-bold text-white">App Design</span>
-                            <span class="text-cyber-neon font-mono">95%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
-                            <div class="bg-gradient-to-r from-orange-500 to-yellow-400 h-3 rounded-full shadow-[0_0_10px_rgba(234,179,8,0.5)]" style="width: 0%" data-width="95%"></div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-bold text-white">SEO</span>
-                            <span class="text-cyber-neon font-mono">90%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
-                            <div class="bg-gradient-to-r from-green-500 to-emerald-400 h-3 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]" style="width: 0%" data-width="90%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="py-24">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-sm font-mono text-cyber-neon mb-2 uppercase tracking-widest">My Works</h2>
-                <h3 class="font-display text-4xl font-bold text-white">Portfolio</h3>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <!-- Item 1 -->
-                <a href="https://www.globalexedu.org/" target="_blank">
-                    <div class="group relative rounded-2xl overflow-hidden cursor-pointer reveal tilt-card">
-                        <img src="public_html/assets/imgs/7.png" alt="Project 1"
-                            class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent 
-                            opacity-0 group-hover:opacity-100 transition-opacity duration-300 
-                            flex flex-col justify-end p-8">
-                            <h4 class="text-2xl font-bold text-white translate-y-4 
-                                group-hover:translate-y-0 transition-transform duration-300">
-                                Global Executive Education
-                            </h4>
-                            <p class="text-cyber-neon translate-y-4 
-                                group-hover:translate-y-0 transition-transform duration-300 delay-75">
-                                Full Stack Development
-                            </p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Item 2 -->
-                <a href="https://mezcodehq.github.io/Solving-Lab-Consultancy/" target="_blank">
-                    <div class="group relative rounded-2xl overflow-hidden cursor-pointer reveal tilt-card"
-                        style="transition-delay: 100ms;">
-                        <img src="public_html/assets/imgs/2.png" alt="Project 2"
-                            class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent 
-                            opacity-0 group-hover:opacity-100 transition-opacity duration-300 
-                            flex flex-col justify-end p-8">
-                            <h4 class="text-2xl font-bold text-white translate-y-4 
-                                group-hover:translate-y-0 transition-transform duration-300">
-                                Solving Lab Consultancy
-                            </h4>
-                            <p class="text-cyber-neon translate-y-4 
-                                group-hover:translate-y-0 transition-transform duration-300 delay-75">
-                                Full Stack Development
-                            </p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Item 3 -->
-                <a href="https://mezcode.com/" target="_blank">
-                    <div class="group relative rounded-2xl overflow-hidden cursor-pointer reveal tilt-card"
-                        style="transition-delay: 200ms;">
-                        <img src="public_html/assets/imgs/8.png" alt="Project 3"
-                            class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent 
-                            opacity-0 group-hover:opacity-100 transition-opacity duration-300 
-                            flex flex-col justify-end p-8">
-                            <h4 class="text-2xl font-bold text-white translate-y-4 
-                                group-hover:translate-y-0 transition-transform duration-300">
-                                MEZCODE IT SOLUTIONS
-                            </h4>
-                            <p class="text-cyber-neon translate-y-4 
-                                group-hover:translate-y-0 transition-transform duration-300 delay-75">
-                                Full Stack Development
-                            </p>
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="py-24 bg-gradient-to-b from-cyber-deeper to-black relative">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                <div class="reveal">
-                    <h2 class="text-sm font-mono text-cyber-neon mb-2 uppercase tracking-widest">Get In Touch</h2>
-                    <h3 class="font-display text-4xl font-bold text-white mb-6">Let's Work Together</h3>
-                    <p class="text-gray-400 text-lg mb-8">
-                        Have a project in mind? I’m always open to discussing new ideas, creative opportunities, or potential partnerships.
-                    </p>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-center space-x-4 p-4 glass-card rounded-xl">
-                            <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center text-blue-400">
-                                <i class="fas fa-phone-alt"></i>
-                            </div>
-                            <div>
-                                <p class="text-gray-400 text-sm">Phone Number</p>
-                                <p class="text-white font-bold">013-3048031</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4 p-4 glass-card rounded-xl">
-                            <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center text-purple-400">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div>
-                                <p class="text-gray-400 text-sm">Email Address</p>
-                                <p class="text-white font-bold">veemeswarang@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4 p-4 glass-card rounded-xl">
-                            <div class="w-12 h-12 bg-cyan-500/20 rounded-full flex items-center justify-center text-cyan-400">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div>
-                                <p class="text-gray-400 text-sm">Location</p>
-                                <p class="text-white font-bold">44, Jalan Majusatu/8, 43000 Kajang</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-card p-8 md:p-10 rounded-3xl border border-white/10 reveal tilt-card" style="transition-delay: 200ms;">
-                    
-                    <!-- 
-                       IMPORTANT: Replace 'PASTE_YOUR_FORMSPREE_URL_HERE' 
-                       with your actual URL from formspree.io 
-                       Example: action="https://formspree.io/f/xvndbzra"
-                    -->
-                    <form 
-                        id="contactForm" 
-                        action="https://formspree.io/f/xojnodno" 
-                        method="POST" 
-                        class="space-y-6"
-                    >
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-gray-400 text-sm mb-2">Your Name</label>
-                                <input type="text" name="name" class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyber-neon focus:ring-1 focus:ring-cyber-neon transition-all" placeholder="John Doe" required>
-                            </div>
-                            <div>
-                                <label class="block text-gray-400 text-sm mb-2">Your Email</label>
-                                <input type="email" name="email" class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyber-neon focus:ring-1 focus:ring-cyber-neon transition-all" placeholder="john@example.com" required>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-gray-400 text-sm mb-2">Subject</label>
-                            <input type="text" name="subject" class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyber-neon focus:ring-1 focus:ring-cyber-neon transition-all" placeholder="Project Discussion" required>
-                        </div>
-                        <div>
-                            <label class="block text-gray-400 text-sm mb-2">Message</label>
-                            <textarea rows="4" name="message" class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyber-neon focus:ring-1 focus:ring-cyber-neon transition-all" placeholder="Tell me about your project..." required></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-4 rounded-xl hover:shadow-[0_0_20px_rgba(124,58,237,0.5)] transition-all transform hover:-translate-y-1">
-                            Send Message <i class="fas fa-paper-plane ml-2"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-black py-8 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-gray-500">Copyright 2026 © My Portfolio</p>
-            <div class="flex space-x-6 text-gray-500">
-                <a href="#" class="hover:text-cyber-neon transition-colors"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="hover:text-cyber-neon transition-colors"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="hover:text-cyber-neon transition-colors"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" class="hover:text-cyber-neon transition-colors"><i class="fab fa-github"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-white text-black px-6 py-4 rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.2)] transform translate-y-24 transition-transform duration-300 z-50 flex items-center gap-4 border-l-4 border-cyber-neon">
-        <div id="toast-icon" class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
-            <i class="fas fa-check"></i>
-        </div>
-        <div>
-            <h4 id="toast-title" class="font-bold text-sm">Success!</h4>
-            <p id="toast-msg" class="text-xs text-gray-500">Message sent successfully.</p>
-        </div>
-    </div>
-
-    <!-- LOGIC -->
-    <script>
-        // 1. Spotlight Mouse Effect
-        document.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            document.documentElement.style.setProperty('--mouse-x', `${x}px`);
-            document.documentElement.style.setProperty('--mouse-y', `${y}px`);
-        });
-
-        // 2. 3D Tilt Effect
-        const tiltCards = document.querySelectorAll('.tilt-card');
-        
-        tiltCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = ((y - centerY) / centerY) * -5; 
-                const rotateY = ((x - centerX) / centerX) * 5;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
-            });
-        });
-
-        // 3. Navbar Logic
-        const navbar = document.getElementById('navbar');
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('shadow-lg', 'bg-cyber-deeper/90');
-            } else {
-                navbar.classList.remove('shadow-lg', 'bg-cyber-deeper/90');
-            }
-        });
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // 4. Typewriter
-        const roles = ["Full Stack Developer", "Programmer", "CyberSecurity Engineer"];
-        let roleIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typeSpeed = 100;
-        const deleteSpeed = 50;
-        const delayBetweenRoles = 2000;
-        const typewriterElement = document.getElementById('typewriter');
-
-        function type() {
-            const currentRole = roles[roleIndex];
-            if (isDeleting) {
-                typewriterElement.textContent = currentRole.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typewriterElement.textContent = currentRole.substring(0, charIndex + 1);
-                charIndex++;
-            }
-            let nextSpeed = isDeleting ? deleteSpeed : typeSpeed;
-            if (!isDeleting && charIndex === currentRole.length) {
-                nextSpeed = delayBetweenRoles;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                roleIndex = (roleIndex + 1) % roles.length;
-                nextSpeed = 500;
-            }
-            setTimeout(type, nextSpeed);
-        }
-        document.addEventListener('DOMContentLoaded', type);
-
-        // 5. Scroll Reveal & Counters
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    if(entry.target.querySelector('.counter')) startCounters(entry.target);
-                    if(entry.target.querySelector('[data-width]')) animateSkills(entry.target);
-                }
-            });
-        }, { threshold: 0.15 });
-        revealElements.forEach(el => revealObserver.observe(el));
-
-        let countersStarted = false;
-        function startCounters(section) {
-            const counters = section.querySelectorAll('.counter');
-            if (counters.length > 0 && !countersStarted) {
-                countersStarted = true;
-                counters.forEach(counter => {
-                    const target = +counter.getAttribute('data-target');
-                    const increment = target / 50; 
-                    const updateCounter = () => {
-                        const c = +counter.innerText.replace('+','');
-                        if (c < target) {
-                            counter.innerText = Math.ceil(c + increment) + '+';
-                            setTimeout(updateCounter, 30);
-                        } else {
-                            counter.innerText = target + '+';
-                        }
-                    };
-                    updateCounter();
-                });
-            }
-        }
-
-        function animateSkills(section) {
-            const bars = section.querySelectorAll('[data-width]');
-            bars.forEach(bar => {
-                const width = bar.getAttribute('data-width');
-                bar.style.transition = "width 1.5s cubic-bezier(0.22, 1, 0.36, 1)";
-                bar.style.width = width;
-            });
-        }
-
-        // 6. Contact Form (Realtime with Formspree AJAX)
-        const form = document.getElementById("contactForm");
-        const toast = document.getElementById('toast');
-        const toastTitle = document.getElementById('toast-title');
-        const toastMsg = document.getElementById('toast-msg');
-        const toastIcon = document.getElementById('toast-icon');
-
-        async function handleSubmit(event) {
-            event.preventDefault();
-            
-            const btn = form.querySelector('button');
-            const originalText = btn.innerHTML;
-            
-            // Check if user replaced the URL
-            if(form.action.includes("PASTE_YOUR_FORMSPREE_URL_HERE")) {
-                alert("Please setup your Formspree URL in the HTML code first!");
-                return;
-            }
-
-            // Loading state
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            btn.disabled = true;
-
-            const data = new FormData(event.target);
-            
-            try {
-                const response = await fetch(event.target.action, {
-                    method: form.method,
-                    body: data,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (response.ok) {
-                    // Success!
-                    showToast("Message Sent!", "I'll get back to you shortly.", "success");
-                    form.reset();
-                } else {
-                    // Error from Formspree
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || "Something went wrong.");
-                }
-            } catch (error) {
-                console.error(error);
-                showToast("Error!", "Failed to send message. Try again.", "error");
-            } finally {
-                // Reset button state after delay
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                    // Hide toast after 4 seconds
-                    setTimeout(() => {
-                        toast.classList.add('translate-y-24');
-                    }, 4000);
-                }, 1000);
-            }
-        }
-
-        function showToast(title, msg, type) {
-            toastTitle.innerText = title;
-            toastMsg.innerText = msg;
-            
-            // Reset classes
-            toastIcon.className = "w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300";
-            
-            if(type === 'success') {
-                toastIcon.classList.add('bg-green-100', 'text-green-600');
-                toastIcon.innerHTML = '<i class="fas fa-check"></i>';
-                toast.classList.replace('border-red-500', 'border-cyber-neon');
-            } else {
-                toastIcon.classList.add('bg-red-100', 'text-red-600');
-                toastIcon.innerHTML = '<i class="fas fa-times"></i>';
-                toast.classList.replace('border-cyber-neon', 'border-red-500');
-            }
-
-            toast.classList.remove('translate-y-24');
-        }
-
-        form.addEventListener("submit", handleSubmit);
-
-        // 7. Canvas Particles
-        const canvas = document.getElementById('hero-canvas');
-        const ctx = canvas.getContext('2d');
-        let particlesArray;
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.5 + 0.5;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.color = Math.random() > 0.5 ? '#3b82f6' : '#8b5cf6';
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
-                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
-            }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = 0.6;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particlesArray = [];
-            const numberOfParticles = (canvas.width * canvas.height) / 12000;
-            for (let i = 0; i < numberOfParticles; i++) particlesArray.push(new Particle());
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-                for (let j = i; j < particlesArray.length; j++) {
-                    const dx = particlesArray[i].x - particlesArray[j].x;
-                    const dy = particlesArray[i].y - particlesArray[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 100) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(139, 92, 246, ${0.15 - distance/1000})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animateParticles);
-        }
-
-        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; initParticles(); });
-        initParticles();
-        animateParticles();
-    </script>
 </body>
 </html>
